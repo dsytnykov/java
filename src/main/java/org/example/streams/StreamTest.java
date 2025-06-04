@@ -10,8 +10,7 @@ public class StreamTest {
         Optional<Integer> max = numbers.stream().max(Integer::compareTo);
 
         List<String> words = Arrays.asList("apple", "banana", "cherry");
-        String result = words.stream()
-                .collect(Collectors.joining(", "));
+        String result = words.stream().collect(Collectors.joining(", "));
         System.out.println(result);
 
         Map<Boolean, List<Integer>> grouped = numbers.stream()
@@ -19,7 +18,7 @@ public class StreamTest {
 
         List<String> sortedWords = words.stream()
                 .sorted(Comparator.reverseOrder())
-                .collect(Collectors.toList());
+                .toList();
 
         boolean allPositive = numbers.stream()
                 .allMatch(n -> n > 0);
@@ -45,7 +44,7 @@ public class StreamTest {
 
         List<String> w = sentences.stream()
                 .flatMap(sentence -> Arrays.stream(sentence.split(" ")))
-                .collect(Collectors.toList());
+                .toList();
 
         List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5, 6);
         int target = 7;
@@ -53,8 +52,24 @@ public class StreamTest {
                 .flatMap(num1 -> numbers.stream()
                         .filter(num2 -> num1 + num2 == target)
                         .map(num2 -> Arrays.asList(num1, num2)))
-                .collect(Collectors.toList());
+                .toList();
 
 
+        /*Merge two lists and remove duplicates */
+        List<String> list1 = Arrays.asList("apple", "banana", "orange");
+        List<String> list2 = Arrays.asList("banana", "grape", "apple");
+        List<String> mergedList = Stream.concat(list1.stream(), list2.stream()).distinct().toList();
+
+        /*Find the first non-repeating character in a string*/
+        String input = "some text for analysis";
+
+        input.chars().mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(c -> c, LinkedHashMap::new, Collectors.counting()))
+                .entrySet().stream()
+                .filter(e -> e.getValue() == 1L)
+                .findFirst()
+                .ifPresentOrElse(
+                        e -> System.out.println("First non-repeating character: " + e.getKey()),
+                        () -> System.out.println("No non-repeating characters found."));
     }
 }
