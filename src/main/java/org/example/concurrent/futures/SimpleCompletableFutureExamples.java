@@ -62,5 +62,10 @@ public class SimpleCompletableFutureExamples {
                 .thenApplyAsync(res -> res * 5)
                 .thenApplyAsync(res -> res * 2);
         futureChain.thenAccept(System.out::println).join();
+
+        //ThenComposeAsync
+        CompletableFuture<String> futureThenComposeAsync = CompletableFuture.supplyAsync(() -> "Hello");
+        CompletableFuture<String> futureThenComposeAsync2 = futureThenComposeAsync.thenComposeAsync(s -> CompletableFuture.supplyAsync(() -> s + " World!"));
+        futureThenComposeAsync2.thenAccept(System.out::println).join();
     }
 }
