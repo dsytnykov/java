@@ -1,4 +1,4 @@
-package org.example.concurrent;
+package org.example.concurrent.futures;
 
 import java.util.concurrent.*;
 

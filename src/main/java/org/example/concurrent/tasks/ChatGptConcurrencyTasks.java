@@ -1,4 +1,4 @@
-package org.example.concurrent.chatgpttasks;
+package org.example.concurrent.tasks;
 
 public class ChatGptConcurrencyTasks {
     /*

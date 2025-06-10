@@ -5,18 +5,19 @@ import java.util.concurrent.Executors;
 
 public class BasicExecutorServiceUse {
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-        for(int i = 0; i < 5; i++) {
-            final int taskId = i;
-            executor.submit(() -> {
-                System.out.println("Executing task " + taskId + " by " + Thread.currentThread().getName());
-                try {
-                    Thread.sleep(1000);
-                } catch(InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            });
+        try (ExecutorService executor = Executors.newFixedThreadPool(5)) {
+            for (int i = 0; i < 5; i++) {
+                final int taskId = i;
+                executor.submit(() -> {
+                    System.out.println("Executing task " + taskId + " by " + Thread.currentThread().getName());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                });
+            }
+            executor.shutdown();
         }
-        executor.shutdown();
     }
 }

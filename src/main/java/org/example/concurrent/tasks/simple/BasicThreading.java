@@ -1,4 +1,4 @@
-package org.example.concurrent.chatgpttasks.simple;
+package org.example.concurrent.tasks.simple;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
