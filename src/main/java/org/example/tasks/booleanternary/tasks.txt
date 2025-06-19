@@ -1,0 +1,113 @@
+Tricky Java Boolean Questions
+1️⃣ What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = null;
+        System.out.println(b ? "YES" : "NO");
+    }
+}
+2️⃣ Will this compile? If yes, what happens?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = false;
+        double result = b ? 1 : 0.5;
+        System.out.println(result);
+    }
+}
+3️⃣ What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b1 = true;
+        Boolean b2 = true;
+        System.out.println(b1 == b2);
+    }
+}
+4️⃣ What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = false;
+        System.out.println(b == Boolean.FALSE ? "NO" : "YES");
+    }
+}
+5️⃣ Will this compile? If yes, what will it print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = true;
+        Object result = b ? 1 : "hello";
+        System.out.println(result);
+    }
+}
+6️⃣ What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b1 = new Boolean(true);
+        Boolean b2 = new Boolean(true);
+        System.out.println(b1 == b2);
+    }
+}
+7️⃣ What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b1 = true;
+        Boolean b2 = Boolean.valueOf("TrUe");
+        System.out.println(b1 == b2);
+    }
+}
+8️⃣ Will this compile? If yes, what will it print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = null;
+        System.out.println(b && true || false);
+    }
+}
+9️⃣ What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = Boolean.FALSE;
+        Integer i = null;
+        System.out.println(b ? i : 42);
+    }
+}
+🔟 What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = true;
+        Object result = b ? 10 : 10.5;
+        System.out.println(result.getClass());
+    }
+}
+1️⃣1️⃣ Will this compile? If yes, what will it print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = true;
+        Object result = b ? 10 : "ten";
+        System.out.println(result.getClass());
+    }
+}
+1️⃣2️⃣ What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = null;
+        System.out.println(b == true);
+    }
+}
+/*In System.out.println(b == true);, Java auto-unboxes the Boolean object b to a primitive boolean to perform the comparison with the primitive true.
+  Auto-unboxing null causes a NullPointerException.*/
+
+1️⃣3️⃣ What will this print?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = Boolean.valueOf(null);
+        System.out.println(b);
+    }
+}
+/*Boolean.valueOf(null) is not the same as new Boolean(null) (which would throw a NullPointerException).
+  Instead, it safely returns Boolean.FALSE.*/
+
+1️⃣4️⃣ Will this compile?
+public class Test {
+    public static void main(String[] args) {
+        Boolean b = false;
+        System.out.println(b ? 1L : 1.0);
+    }
+}
