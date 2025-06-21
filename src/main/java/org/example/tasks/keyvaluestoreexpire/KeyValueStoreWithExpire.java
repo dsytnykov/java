@@ -15,6 +15,7 @@ Ensure thread safety using ConcurrentHashMap.
 Optimize for low memory usage and fast access.*/
 public class KeyValueStoreWithExpire {
 
+    //Bad solution
     private static class InMemoryCache {
         ConcurrentMap<String, String> cache = new ConcurrentHashMap<>();
 
@@ -43,6 +44,7 @@ public class KeyValueStoreWithExpire {
         }
     }
 
+    //Better solution
     private static class ExpiringKeyValueStore {
         private final ConcurrentHashMap<String, String> store = new ConcurrentHashMap<>();
         private final ConcurrentHashMap<String, Long> expiryMap = new ConcurrentHashMap<>();
