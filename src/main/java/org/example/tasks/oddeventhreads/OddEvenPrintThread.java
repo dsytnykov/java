@@ -1,6 +1,6 @@
 package org.example.tasks.oddeventhreads;
 
-public class Demo {
+public class OddEvenPrintThread {
     private final static int N = 10;
     private int count = 1;
 
@@ -37,9 +37,9 @@ public class Demo {
     }
 
     public static void main(String[] args) {
-        Demo demo = new Demo();
-        Thread oddThread = new Thread(demo::oddThreadTask);
-        Thread evenThread = new Thread(demo::evenThreadTask);
+        OddEvenPrintThread oddEvenPrintThread = new OddEvenPrintThread();
+        Thread oddThread = new Thread(oddEvenPrintThread::oddThreadTask);
+        Thread evenThread = new Thread(oddEvenPrintThread::evenThreadTask);
 
         oddThread.start();
         evenThread.start();
