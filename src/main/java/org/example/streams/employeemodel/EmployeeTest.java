@@ -1118,6 +1118,10 @@ public class EmployeeTest {
                 .reduce("", (c, con) -> con + c);
         System.out.println(sorted);
 
+        /*Group a list of employees first by department, then by role.*/
+        Map<String, Map<String, List<Employee>>> employeesByDeptAndCity = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDeptName, Collectors.groupingBy(Employee::getCity)));
+
         /*TODO
     Generate Fibonacci Stream
     Use Stream.iterate to generate the first 20 numbers of the Fibonacci sequence.*/

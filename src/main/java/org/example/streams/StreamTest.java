@@ -71,5 +71,11 @@ public class StreamTest {
                 .ifPresentOrElse(
                         e -> System.out.println("First non-repeating character: " + e.getKey()),
                         () -> System.out.println("No non-repeating characters found."));
+
+        //From a list of sentences, find the top 3 longest ones.
+        sentences.stream()
+                .max(Comparator.comparingInt(String::length))
+                .ifPresentOrElse(System.out::println, () -> System.out.println("Can't find max value"));
+
     }
 }
