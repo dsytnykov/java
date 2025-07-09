@@ -77,5 +77,21 @@ public class StreamTest {
                 .max(Comparator.comparingInt(String::length))
                 .ifPresentOrElse(System.out::println, () -> System.out.println("Can't find max value"));
 
+
+        //Given a list of books (title, author, year), sort them by author, then by year, then by title
+        record Book(String title, String author, int year){}
+
+        List<Book> books = List.of(
+                new Book("Java concurrency in practice", "Goetz", 2006),
+                new Book("Java", "unknown", 2006),
+                new Book("Head First Design Patters", "Freeman", 2020),
+                new Book("System Design Interview", "Xu", 2022),
+                new Book("Effective Java", "Bloch", 2017)
+        );
+        List<Book> sortedBooks = books.stream()
+                .sorted(Comparator.comparing(Book::author).thenComparing(Book::year).thenComparing(Book::title))
+                .toList();
+
+
     }
 }
