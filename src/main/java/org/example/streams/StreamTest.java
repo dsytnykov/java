@@ -92,6 +92,25 @@ public class StreamTest {
                 .sorted(Comparator.comparing(Book::author).thenComparing(Book::year).thenComparing(Book::title))
                 .toList();
 
+        //Partition a list of customers into premium vs. regular, and within each group, further partition into active vs. inactive.
+        record Customer(String name, String level, boolean isActive) {}
+        List<Customer> customers = List.of(
+                new Customer("John Doe", "premium", true),
+                new Customer("Jane Doe", "regular", true),
+                new Customer("Bob Smith", "premium", false),
+                new Customer("Alice Johnson", "regular", true),
+                new Customer("Michael Brown", "premium", true),
+                new Customer("Emily Davis", "regular", false),
+                new Customer("David Wilson", "premium", true),
+                new Customer("Sarah Anderson", "regular", false)
+        );
+
+        Map<String, Map<Boolean, List<Customer>>> collectCustomers = customers.stream()
+                .collect(Collectors.groupingBy(
+                        Customer::level,
+                        Collectors.partitioningBy(Customer::isActive)));
+
+        System.out.println(collectCustomers);
 
     }
 }
