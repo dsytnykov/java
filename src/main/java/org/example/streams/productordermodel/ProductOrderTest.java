@@ -463,11 +463,20 @@ public class ProductOrderTest {
         Across all orders, count how many items each customer bought and compute global statistics.
 
 */
-//TODO
         /*1. Find the Customer Who Spent the Most in a Single Order
-        Return the customer who made the single highest-value order.
+        Return the customer who made the single highest-value order.*/
+        Customer maxInSingleOrder = getCustomers().stream()
+                .collect(Collectors.toMap(c -> c,
+                        c -> c.orders().stream()
+                                .map(o -> o.products().stream()
+                                        .mapToDouble(Product::price)
+                                        .sum())
+                                .max(Double::compareTo).orElse(0.0)))
+                        .entrySet().stream().max(Comparator.comparingDouble(Map.Entry::getValue))
+                        .map(Map.Entry::getKey).orElse(null);
 
-        2. Get a Map of Product → List of Customers Who Bought It
+        //TODO
+        /*2. Get a Map of Product → List of Customers Who Bought It
         Create a Map<Product, List<Customer>> showing who has purchased each product (at least once).
 
         3. Identify Customers Who Have Bought a Product More Than Once (Any Order)
