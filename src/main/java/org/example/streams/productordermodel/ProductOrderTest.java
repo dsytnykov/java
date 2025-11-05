@@ -475,10 +475,30 @@ public class ProductOrderTest {
                         .entrySet().stream().max(Comparator.comparingDouble(Map.Entry::getValue))
                         .map(Map.Entry::getKey).orElse(null);
 
-        //TODO
-        /*2. Get a Map of Product → List of Customers Who Bought It
-        Create a Map<Product, List<Customer>> showing who has purchased each product (at least once).
 
+        /*2. Get a Map of Product → List of Customers Who Bought It
+        Create a Map<Product, List<Customer>> showing who has purchased each product (at least once).*/
+        Map<Product, List<Customer>> productsByCustomers = new HashMap<>();
+        getCustomers().stream()
+                .collect(Collectors.toMap(c -> c, c -> c.orders().stream().flatMap(o -> o.products().stream()).collect(Collectors.toList())))
+                .forEach((key, value) ->
+                        value.forEach(p -> productsByCustomers.computeIfAbsent(p, k -> new ArrayList<>()).add(key)));
+
+        Map<Product, List<Customer>> productsByCustomers2 = getCustomers().stream()
+                .flatMap(customer -> customer.orders().stream()
+                        .flatMap(order -> order.products().stream()
+                                .map(product -> Map.entry(product, customer))))
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.mapping(
+                                Map.Entry::getValue,
+                                Collectors.collectingAndThen(
+                                        Collectors.toSet(),
+                                        ArrayList::new))
+                ));
+
+        //TODO
+        /*
         3. Identify Customers Who Have Bought a Product More Than Once (Any Order)
         Find all customers who have purchased the same product in more than one order.
 
