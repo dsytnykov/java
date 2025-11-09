@@ -497,11 +497,18 @@ public class ProductOrderTest {
                                         ArrayList::new))
                 ));
 
-        //TODO
         /*
         3. Identify Customers Who Have Bought a Product More Than Once (Any Order)
-        Find all customers who have purchased the same product in more than one order.
+        Find all customers who have purchased the same product in more than one order.*/
+        List<Customer> customersWithMultiplePurchases = getCustomers().stream()
+                .filter(c -> c.orders().stream()
+                        .flatMap(o -> o.products().stream())
+                        .collect(Collectors.groupingBy(p -> p, Collectors.counting()))
+                        .entrySet().stream()
+                        .anyMatch(e -> e.getValue() > 1))
+                .toList();
 
+        /*//TODO
         4. Calculate Customer Retention Based on Order Intervals
         For each customer, calculate the number of days between their first and last order — flag those returning customers whose duration exceeds 6 months.
 
