@@ -7,7 +7,7 @@ import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 //It can be also adapted for strategies
-public class ReplaceWithMapAndFunctionalInterfaces {
+public class ReplaceIfWithMapAndFunctionalInterfaces {
     private final Predicate<String> p1 = Objects::isNull;
     private final Predicate<String> p2 = String::isEmpty;
 
