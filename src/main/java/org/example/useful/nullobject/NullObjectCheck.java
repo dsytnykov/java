@@ -27,7 +27,23 @@ public class NullObjectCheck {
 
         //4. Use null objects or default values
         Optional.ofNullable(someNullObject).orElse("someNullObject is null");
+
+        //5.
+        Item item = new Item(null);
+        // replace for item.subItem().subSubItem().name(); if we expect that some of the parameters can be null
+        // think always about performance
+        String name = Optional.ofNullable(item)
+                .map(Item::subItem)
+                .map(SubItem::subSubItem)
+                .map(SubSubItem::name)
+                .orElseThrow(() -> new RuntimeException("Some parameter is null"));
     }
+
+    record Item(SubItem subItem) {}
+
+    record SubItem(SubSubItem subSubItem, String name) {}
+
+    record SubSubItem(String name) {}
 
     public static List<String> getItems() {
         return Collections.emptyList();
